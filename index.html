@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ee">
+  <title>アーカイブサイト</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f3ee;
+      --ink: #252720;
+      --muted: #77796f;
+      --line: #d9d8d0;
+      --accent: #78816b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .side-botanical {
+      position: fixed;
+      z-index: 0;
+      top: 0;
+      width: clamp(170px, 23vw, 330px);
+      height: 100vh;
+      color: #557744;
+      opacity: .38;
+      pointer-events: none;
+    }
+    .side-botanical-left { left: 0; }
+    .side-botanical-right { right: 0; transform: scaleX(-1); }
+    .page { position: relative; z-index: 1; width: min(1440px, 100% - 64px); margin: 0 auto; }
+    header {
+      min-height: 184px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      gap: 24px;
+    }
+    .eyebrow, .count, .item-name, .word {
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      letter-spacing: .1em;
+    }
+    .eyebrow { margin: 0 0 12px; color: var(--muted); font-size: 11px; }
+    h1 { margin: 0; font-size: clamp(30px, 4vw, 48px); font-weight: 500; letter-spacing: .08em; }
+    .count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    main { padding: 38px 0 76px; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 42px 24px; }
+    .card { min-width: 0; }
+    .photo-button {
+      display: block; width: 100%; padding: 0; border: 0; background: transparent;
+      cursor: zoom-in; overflow: hidden;
+    }
+    .photo-button img { display: block; width: 100%; height: clamp(280px, 35vw, 520px); object-fit: contain; transition: transform .45s ease; }
+    .photo-button:hover img { transform: scale(1.025); }
+    .caption { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-top: 14px; }
+    .item-name { margin: 0; font-size: 13px; font-weight: 500; }
+    .word { margin: 0; color: var(--muted); font-size: 12px; }
+    footer { border-top: 1px solid var(--line); padding: 18px 0 28px; color: var(--muted); font: 11px/1.6 "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif; letter-spacing: .08em; }
+    dialog { width: min(96vw, 1500px); max-width: none; height: min(94vh, 1100px); padding: 20px; border: 1px solid var(--line); background: var(--paper); }
+    dialog::backdrop { background: rgb(23 24 20 / 82%); }
+    dialog img { display: block; width: 100%; height: calc(100% - 38px); object-fit: contain; }
+    .close { display: block; margin: 0 0 10px auto; border: 0; background: none; color: var(--ink); font: 12px "Yu Gothic", sans-serif; letter-spacing: .12em; cursor: pointer; }
+    @media (min-width: 1500px) { .photo-button img { height: 500px; } }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 18px; } .photo-button img { height: clamp(260px, 54vw, 450px); } }
+    @media (max-width: 560px) {
+      .page { width: calc(100% - 36px); }
+      header { min-height: 144px; align-items: flex-end; padding: 32px 0 20px; }
+      h1 { font-size: 32px; }
+      .count { font-size: 10px; padding-bottom: 5px; }
+      main { padding: 24px 0 48px; }
+      .grid { grid-template-columns: 1fr; gap: 30px; }
+      .photo-button img { height: min(112vw, 560px); }
+      .caption { padding-top: 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <svg class="side-botanical side-botanical-left" viewBox="0 0 320 1000" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke-linecap="round" stroke-linejoin="round">
+      <path d="M34 18C78 92 28 151 70 228S36 354 82 432S45 557 91 637S57 766 100 847S77 931 116 982" fill="none" stroke="#897b59" stroke-width="4"/>
+      <path d="M50 81C96 44 160 45 222 82C169 117 105 117 50 81Z" fill="#5f8a45" fill-opacity=".78" stroke="#466b3b" stroke-width="2"/><path d="M54 82C111 84 164 82 217 82" fill="none" stroke="#cfdda0" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M57 160C36 114 49 73 91 38C111 88 100 132 57 160Z" fill="#8eaa5c" fill-opacity=".78" stroke="#52753e" stroke-width="2"/><path d="M58 156C69 113 80 75 89 43" fill="none" stroke="#d9e4a9" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M66 265C116 229 178 232 240 269C185 306 119 304 66 265Z" fill="#73964c" fill-opacity=".8" stroke="#496f3b" stroke-width="2"/><path d="M70 265C126 267 183 267 235 269" fill="none" stroke="#d4e1a1" stroke-opacity=".75" stroke-width="1.5"/>
+      <path d="M71 345C48 299 60 258 103 222C123 273 112 317 71 345Z" fill="#a2b96c" fill-opacity=".78" stroke="#607c45" stroke-width="2"/><path d="M72 341C83 299 94 260 101 228" fill="none" stroke="#e2e9b7" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M75 469C127 432 190 438 251 478C194 513 129 508 75 469Z" fill="#527f43" fill-opacity=".8" stroke="#3e6539" stroke-width="2"/><path d="M80 469C135 472 193 475 245 478" fill="none" stroke="#c9d997" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M81 550C58 504 72 461 116 427C135 478 122 521 81 550Z" fill="#91ad60" fill-opacity=".78" stroke="#547640" stroke-width="2"/><path d="M82 545C94 504 106 465 114 433" fill="none" stroke="#dce7ad" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M83 676C137 641 200 648 260 687C202 722 137 716 83 676Z" fill="#6f944b" fill-opacity=".8" stroke="#496e3c" stroke-width="2"/><path d="M88 676C145 680 201 684 254 687" fill="none" stroke="#d7e2a3" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M91 758C67 711 80 670 124 636C144 686 132 730 91 758Z" fill="#a0b96a" fill-opacity=".8" stroke="#5a7841" stroke-width="2"/><path d="M92 753C104 711 115 675 122 642" fill="none" stroke="#e2e9b5" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M94 875C146 841 209 848 269 887C211 922 148 915 94 875Z" fill="#5c8646" fill-opacity=".78" stroke="#42693a" stroke-width="2"/><path d="M99 875C157 879 211 883 263 887" fill="none" stroke="#d1dfa0" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M101 952C80 908 93 869 135 835C155 883 142 925 101 952Z" fill="#8eaa5c" fill-opacity=".78" stroke="#52753e" stroke-width="2"/><path d="M102 948C114 908 126 871 133 841" fill="none" stroke="#d9e4a9" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M69 228C110 203 143 173 168 137M78 230C119 248 150 271 177 307M80 431C122 404 155 377 179 340M87 433C129 452 160 477 185 512M90 636C133 611 165 581 189 544M96 639C137 657 169 682 194 718M99 846C143 820 176 790 200 753M105 849C147 868 179 893 205 929" fill="none" stroke="#718957" stroke-width="2.5"/>
+      <path d="M165 140C150 116 152 94 169 70C184 94 182 118 165 140ZM177 148C198 127 221 119 249 125C229 146 206 155 177 148ZM174 305C158 280 160 258 177 233C192 258 190 282 174 305ZM181 314C204 295 227 289 255 298C233 317 210 323 181 314ZM176 339C160 315 163 293 180 269C195 294 193 317 176 339ZM184 348C207 330 230 325 258 335C235 353 212 358 184 348ZM180 510C164 485 166 463 183 438C199 463 197 487 180 510ZM187 519C210 500 233 495 261 505C238 523 215 528 187 519ZM184 543C168 519 171 497 188 473C203 498 201 521 184 543ZM192 552C215 534 238 530 266 540C243 558 220 562 192 552ZM189 716C172 691 174 669 192 645C207 670 205 694 189 716ZM196 725C219 707 242 703 270 713C247 731 224 735 196 725ZM195 751C179 727 182 705 199 681C214 706 212 729 195 751ZM203 760C226 742 249 738 277 748C254 766 231 770 203 760ZM198 927C181 902 183 880 201 856C216 881 214 905 198 927Z" fill="#86a45d" fill-opacity=".76" stroke="#557442" stroke-width="1.3"/>
+    </g>
+  </svg>
+  <svg class="side-botanical side-botanical-right" viewBox="0 0 320 1000" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke-linecap="round" stroke-linejoin="round">
+      <path d="M34 18C78 92 28 151 70 228S36 354 82 432S45 557 91 637S57 766 100 847S77 931 116 982" fill="none" stroke="#897b59" stroke-width="4"/>
+      <path d="M50 81C96 44 160 45 222 82C169 117 105 117 50 81Z" fill="#5f8a45" fill-opacity=".78" stroke="#466b3b" stroke-width="2"/><path d="M54 82C111 84 164 82 217 82" fill="none" stroke="#cfdda0" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M57 160C36 114 49 73 91 38C111 88 100 132 57 160Z" fill="#8eaa5c" fill-opacity=".78" stroke="#52753e" stroke-width="2"/><path d="M58 156C69 113 80 75 89 43" fill="none" stroke="#d9e4a9" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M66 265C116 229 178 232 240 269C185 306 119 304 66 265Z" fill="#73964c" fill-opacity=".8" stroke="#496f3b" stroke-width="2"/><path d="M70 265C126 267 183 267 235 269" fill="none" stroke="#d4e1a1" stroke-opacity=".75" stroke-width="1.5"/>
+      <path d="M71 345C48 299 60 258 103 222C123 273 112 317 71 345Z" fill="#a2b96c" fill-opacity=".78" stroke="#607c45" stroke-width="2"/><path d="M72 341C83 299 94 260 101 228" fill="none" stroke="#e2e9b7" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M75 469C127 432 190 438 251 478C194 513 129 508 75 469Z" fill="#527f43" fill-opacity=".8" stroke="#3e6539" stroke-width="2"/><path d="M80 469C135 472 193 475 245 478" fill="none" stroke="#c9d997" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M81 550C58 504 72 461 116 427C135 478 122 521 81 550Z" fill="#91ad60" fill-opacity=".78" stroke="#547640" stroke-width="2"/><path d="M82 545C94 504 106 465 114 433" fill="none" stroke="#dce7ad" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M83 676C137 641 200 648 260 687C202 722 137 716 83 676Z" fill="#6f944b" fill-opacity=".8" stroke="#496e3c" stroke-width="2"/><path d="M88 676C145 680 201 684 254 687" fill="none" stroke="#d7e2a3" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M91 758C67 711 80 670 124 636C144 686 132 730 91 758Z" fill="#a0b96a" fill-opacity=".8" stroke="#5a7841" stroke-width="2"/><path d="M92 753C104 711 115 675 122 642" fill="none" stroke="#e2e9b5" stroke-opacity=".78" stroke-width="1.5"/>
+      <path d="M94 875C146 841 209 848 269 887C211 922 148 915 94 875Z" fill="#5c8646" fill-opacity=".78" stroke="#42693a" stroke-width="2"/><path d="M99 875C157 879 211 883 263 887" fill="none" stroke="#d1dfa0" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M101 952C80 908 93 869 135 835C155 883 142 925 101 952Z" fill="#8eaa5c" fill-opacity=".78" stroke="#52753e" stroke-width="2"/><path d="M102 948C114 908 126 871 133 841" fill="none" stroke="#d9e4a9" stroke-opacity=".76" stroke-width="1.5"/>
+      <path d="M69 228C110 203 143 173 168 137M78 230C119 248 150 271 177 307M80 431C122 404 155 377 179 340M87 433C129 452 160 477 185 512M90 636C133 611 165 581 189 544M96 639C137 657 169 682 194 718M99 846C143 820 176 790 200 753M105 849C147 868 179 893 205 929" fill="none" stroke="#718957" stroke-width="2.5"/>
+      <path d="M165 140C150 116 152 94 169 70C184 94 182 118 165 140ZM177 148C198 127 221 119 249 125C229 146 206 155 177 148ZM174 305C158 280 160 258 177 233C192 258 190 282 174 305ZM181 314C204 295 227 289 255 298C233 317 210 323 181 314ZM176 339C160 315 163 293 180 269C195 294 193 317 176 339ZM184 348C207 330 230 325 258 335C235 353 212 358 184 348ZM180 510C164 485 166 463 183 438C199 463 197 487 180 510ZM187 519C210 500 233 495 261 505C238 523 215 528 187 519ZM184 543C168 519 171 497 188 473C203 498 201 521 184 543ZM192 552C215 534 238 530 266 540C243 558 220 562 192 552ZM189 716C172 691 174 669 192 645C207 670 205 694 189 716ZM196 725C219 707 242 703 270 713C247 731 224 735 196 725ZM195 751C179 727 182 705 199 681C214 706 212 729 195 751ZM203 760C226 742 249 738 277 748C254 766 231 770 203 760ZM198 927C181 902 183 880 201 856C216 881 214 905 198 927Z" fill="#86a45d" fill-opacity=".76" stroke="#557442" stroke-width="1.3"/>
+    </g>
+  </svg>
+  <div class="page">
+    <header>
+      <div>
+        <p class="eyebrow">PHOTO ARCHIVE</p>
+        <h1>アーカイブサイト</h1>
+      </div>
+<span class="count" id="count"></span>
+    </header>
+    <main>
+      <section class="grid" id="gallery" aria-label="写真一覧"></section>
+    </main>
+    <footer>アーカイブサイト</footer>
+  </div>
+
+  <dialog id="viewer" aria-label="写真を拡大表示">
+    <button class="close" id="close" type="button">閉じる ×</button>
+    <img id="viewer-image" alt="">
+  </dialog>
+
+  <script>
+    const photos = [
+      { name: "01", src: "images/01.jpg" },
+      { name: "02", src: "images/02.jpg" },
+      { name: "03", src: "images/03.jpg" },
+      { name: "04", src: "images/04.jpg" },
+      { name: "05", src: "images/05.jpg" }
+    ];
+
+    const gallery = document.querySelector("#gallery");
+    const viewer = document.querySelector("#viewer");
+    const viewerImage = document.querySelector("#viewer-image");
+    document.querySelector("#count").textContent = `${String(photos.length).padStart(2, "0")} 枚`;
+
+    for (const photo of photos) {
+      const card = document.createElement("article");
+      card.className = "card";
+      const button = document.createElement("button");
+      button.className = "photo-button";
+      button.type = "button";
+      button.setAttribute("aria-label", `${photo.name} を拡大表示`);
+      const image = document.createElement("img");
+      image.src = photo.src;
+      image.alt = photo.name;
+      image.loading = "lazy";
+      button.append(image);
+      button.addEventListener("click", () => {
+        viewerImage.src = photo.src;
+        viewerImage.alt = photo.name;
+        viewer.showModal();
+      });
+      const caption = document.createElement("div");
+      caption.className = "caption";
+      const name = document.createElement("h2");
+      name.className = "item-name";
+      name.textContent = photo.name;
+      const word = document.createElement("p");
+      word.className = "word";
+      word.textContent = "（ここに言葉）";
+      caption.append(name, word);
+      card.append(button, caption);
+      gallery.append(card);
+    }
+
+    document.querySelector("#close").addEventListener("click", () => viewer.close());
+    viewer.addEventListener("click", event => {
+      if (event.target === viewer) viewer.close();
+    });
+    viewer.addEventListener("close", () => { viewerImage.removeAttribute("src"); });
+  </script>
+</body>
+</html>
